@@ -26,7 +26,7 @@
             <div class="endpoint-path">/api/products/:pid</div>
             <div class="form-group">
                 <label>🔢 Product ID:</label>
-                <input type="number" id="pid-get" placeholder="Ej: 1" min="1">
+                <input type="text" id="pid-get" placeholder="Ej: 69ba07c93908f7899ddd10c3">
             </div>
             <button class="btn" onclick="testGetProductById()">🔍 Obtener Producto</button>
             <div id="product-response" class="response-container" style="display: none;">
@@ -103,7 +103,7 @@
             <div class="endpoint-path">/api/products/:pid</div>
             <div class="form-group">
                 <label>🔢 Product ID:</label>
-                <input type="number" id="pid-put" placeholder="Ej: 1" min="1">
+                <input type="text" id="pid-put" placeholder="Ej: 69ba07c93908f7899ddd10c3">
             </div>
             <div class="form-group">
                 <label>⚙️ Action:</label>
@@ -142,7 +142,7 @@
             <div class="endpoint-path">/api/products/:pid</div>
             <div class="form-group">
                 <label>🔢 Product ID:</label>
-                <input type="number" id="pid-delete" placeholder="Ej: 1" min="1">
+                <input type="text" id="pid-delete" placeholder="Ej: 69ba07c93908f7899ddd10c3">
             </div>
             <button class="btn" onclick="testDeleteProduct()">🗑️ Eliminar Producto</button>
             <div id="delete-response" class="response-container" style="display: none;">
@@ -209,11 +209,11 @@
             <div class="endpoint-path">/api/carts/:cid/product/:pid</div>
             <div class="form-group">
                 <label>🛒 Cart ID:</label>
-                <input type="text" id="cid-add" placeholder="Ej: 1">
+                <input type="text" id="cid-add" placeholder="Ej: 69ba07c93908f7899ddd10c3">
             </div>
             <div class="form-group">
                 <label>🔢 Product ID:</label>
-                <input type="number" id="pid-add" placeholder="Ej: 1" min="1">
+                <input type="text" id="pid-add" placeholder="Ej: 69ba07c93908f7899ddd10c3">
             </div>
             <div class="form-group">
                 <label>📊 Quantity:</label>

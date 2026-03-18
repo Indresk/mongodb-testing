@@ -3,6 +3,8 @@ const open = require('open');
 const path = require('path');
 const handlebars = require('express-handlebars')
 const socketIO = require('socket.io')
+const mongoose = require('mongoose')
+require('dotenv').config();
 
 const apiCartRouter = require('./router/apiCarts.router.js')
 const apiProdsRouter = require('./router/apiProds.router.js')
@@ -12,11 +14,10 @@ const ProductManager = require('./dao/class/ProductManager.js')
 const CartManager = require('./dao/class/CartManager.js');
 
 const puerto = 8080;
+const MONGOKEY = process.env.MONGOKEY
 
-const dbPath = path.join(__dirname, 'dao/db/prods', 'products.json');
-const cartDBPath = path.join(__dirname, 'dao/db/carts', 'carts.json');
-const productManager = new ProductManager(dbPath)
-const cartManager = new CartManager(cartDBPath,productManager)
+const productManager = new ProductManager()
+const cartManager = new CartManager(productManager)
 
 const app = express()
 
@@ -24,7 +25,8 @@ const app = express()
 
 const httpServer = app.listen(puerto,()=>{
     console.log(`Servidor levantado en el puerto ${puerto}`)
-    open.openApp(`http://localhost:${puerto}`) 
+    mongoose.connect(MONGOKEY).then((e)=>console.log("Conexión establecida con estado: ",e.connections[0]._readyState));
+    // open.openApp(`http://localhost:${puerto}`) 
 })
 
 const socketServer = new socketIO.Server(httpServer);

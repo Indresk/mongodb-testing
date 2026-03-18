@@ -1,20 +1,13 @@
-const DBManager = require('./DBManager')
 const Cart = require('./cart')
 
 class CartManager {
-    #DBManager
-    #cartInit
-    constructor(pointingDB,ProdsManager){
+    constructor(ProdsManager){
         this.carts = []
-
         this.ProdsManager = ProdsManager
-        this.#DBManager = new DBManager(pointingDB);
-        this.#cartInit = false
     }
 
     async getCarts(id=false){
         const idFixed = parseInt(id)
-        if(!this.#cartInit){await this.#initCarts();this.#cartInit=true}
         if(!idFixed){
             try {
                 if(this.carts.length === 0)throw new Error("No hay ningún cart actualmente creado.")
@@ -45,7 +38,6 @@ class CartManager {
         const pidFixed = parseInt(pid)
         const quantityFixed = parseInt(quantity)
         console.log(`\nProceso de añadir producto a cart iniciado...`)
-        if(!this.#cartInit){await this.#initCarts();this.#cartInit=true}
         try {
             if(isNaN(quantityFixed)) throw new Error(`La cantidad brindada: ${quantity} no es valida.`)
             let cartFinded = this.carts.find((cart)=>cart.id === cidFixed)
@@ -53,7 +45,7 @@ class CartManager {
             let prodFinded = await this.ProdsManager.getProducts(pidFixed)
             if(prodFinded.status === 'failed') throw new Error(`No se encontró el producto con la ID: ${pidFixed}`)
             const finalQuantity = cartFinded.addProduct(prodFinded.content,quantityFixed)
-            await this.#DBManager.updateFile(JSON.stringify(this.carts))
+            // await this.#DBManager.updateFile(JSON.stringify(this.carts))
             console.log(`\n${quantity} unidades del producto con el ID: ${pidFixed} han sido añadidas exitosamente al carrito con el ID: ${cidFixed}. | Unidades totales: ${finalQuantity}.`)
             return {status: "success",message: `${quantity} unidades del producto con el ID: ${pidFixed} han sido añadidas exitosamente al carrito con el ID: ${cidFixed}. | Unidades totales: ${finalQuantity}.`,content:cartFinded}
         } catch (error) {
@@ -64,33 +56,16 @@ class CartManager {
 
     async createCart(){
         console.log(`\nProceso de creación de cart iniciado...`)
-        if(!this.#cartInit){await this.#initCarts();this.#cartInit=true}
         try {
             const newCart = new Cart()
             await newCart.setID(this.carts);
             this.carts.push(newCart)
-            await this.#DBManager.updateFile(JSON.stringify(this.carts))
+            // await this.#DBManager.updateFile(JSON.stringify(this.carts))
             console.log(`\nID: ${newCart.id} asignado al nuevo carrito.`)
             return {status: "success",message: `Cart creado satisfactoriamente con el ID: ${newCart.id}`,content:newCart.id}
         } catch (error) {
             console.log(`No se pudo crear el cart solicitado: ${error.message}`)
             return {status: "failed", message:`No se pudo crear el cart solicitado: ${error.message}`}
-        }
-    }
-
-    // metodos de inicialización
-
-    async #initCarts(){
-        try {
-            console.log('Inicializando carritos...')
-            const temporalCarts = await this.#DBManager.readFile()
-            if(temporalCarts.length !== 0){
-            this.carts = temporalCarts.map(prod => new Cart(prod.id,prod.products));
-            console.log(`Carts del archivo almacenados en memoria exitosamente: \n`)
-            }
-            else{console.log(`El archivo no tiene actualmente ningún cart.`)}
-        } catch (error) {
-            console.log('No se pudieron obtener los carts guardados: ',error.message)
         }
     }
 }

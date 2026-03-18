@@ -1,19 +1,24 @@
 const express = require('express')
+const paginationManager = require('../util/paginationManager.js')
 
 module.exports = function ({ productManager }) {
     const viewsRouter = express.Router()
     viewsRouter.use(express.json())
 
     viewsRouter.get("/", async (req, res) => {
-        const internalResponse = await productManager.getProducts();
+        const optionsPag = paginationManager(req);        
+        const internalResponse = await productManager.getProducts(false,optionsPag)
+
         switch(internalResponse.status){
             case 'failed':
                 return res.redirect(`/404?errorMessage=${internalResponse.message}`)
 
             case 'success':
-                const prodsToRender = internalResponse.content.map((prod)=>{return {...prod, mainThumb:prod.thumbnail[0]}})
+                const {docs,...pagination} = internalResponse.content;
+                const prodsToRender = docs.map((prod)=>{return {...prod, mainThumb:prod.thumbnails[0]}})
                 return res.render("home", {
                     products: prodsToRender,
+                    pagination: pagination,
                     head: {
                         styles: "/css/styles.css",
                         title: "Vista de productos"
@@ -26,13 +31,16 @@ module.exports = function ({ productManager }) {
     });
 
     viewsRouter.get('/realtimeproducts',async(req,res)=>{
-        const internalResponse = await productManager.getProducts();
+        const optionsPag = paginationManager(req);        
+        const internalResponse = await productManager.getProducts(false,optionsPag)
+
         switch(internalResponse.status){
             case 'failed':
                 return res.redirect(`/404?errorMessage=${internalResponse.message}`)
 
             case 'success':
-                const prodsToRender = internalResponse.content.map((prod)=>{return {...prod, mainThumb:prod.thumbnail[0]}})
+                const {docs,...pagination} = internalResponse.content;
+                const prodsToRender = docs.map((prod)=>{return {...prod, mainThumb:prod.thumbnails[0]}})
                 return res.render("realTimeProducts", {
                     products: prodsToRender,
                     head: {
@@ -82,7 +90,7 @@ module.exports = function ({ productManager }) {
                 return res.redirect(`/404?errorMessage=${internalResponse.message}`)
 
             case 'success':
-                const prodToRender = {...internalResponse.content , mainThumb:internalResponse.content.thumbnail[0]}
+                const prodToRender = {...internalResponse.content , mainThumb:internalResponse.content.thumbnails[0]}
                 return res.render("detailProds", {
                     product: prodToRender,
                     head: {

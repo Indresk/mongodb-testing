@@ -1,20 +1,29 @@
 const socket = io();
 
-socket.on("prods-updated", ({prods,status,message,action}) => {
+socket.on("prods-updated", async({action}) => {
     const container = document.querySelector(".products-rt")
     container.innerHTML = ''
     let actionMessage = ''
+
+    const queryString = window.location.search;
+    const fetchURL = '/api/products'+queryString
+
+    const apiResponse = await fetch(fetchURL);
+    const data = await apiResponse.json();
+    console.log(data)
+    const prods = data.content.docs;
+    
 
     switch(action){
         case 'create': actionMessage = 'creó'; break;
         case 'delete': actionMessage = 'eliminó'; break;
         case 'modify': actionMessage = 'modificó'; break;
-        default: status = 'failed'; break;
+        default: data.status = 'failed'; break;
     }
 
-    if(status === 'failed'){
+    if(data.status === 'failed'){
         Swal.fire({
-            text: `Error actualizando los productos en tiempo real: ${message}.`,
+            text: `Error actualizando los productos en tiempo real: ${data.message}.`,
             toast: true,
             position: 'top-right',
             showConfirmButton: false,
@@ -32,7 +41,7 @@ socket.on("prods-updated", ({prods,status,message,action}) => {
                 <strong>ID: ${prod.id}</strong>
                 <div class="prod-status ${prod.status?'active':'inactive'}">${prod.status?'Disponible':'Agotado'}</div>
             </div>
-            <img src="${prod.mainThumb}" alt="" class="main-thumb" alt="">
+            <img src="${prod.thumbnails[0]}" alt="" class="main-thumb" alt="">
             <div>
                 <h3>${prod.title}</h3>
                 <p>$${prod.price}</p>
