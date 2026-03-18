@@ -1,0 +1,65 @@
+<div class="container">
+    <section>
+      <h2>Detalle de producto {{product.title}}</h2>
+
+      <div class="endpoint-grid">
+        <article class="endpoint-card">
+          <h3 class="prod-title">{{product.title}}</h3>
+
+          <p class="prod-description">
+            {{product.description}}
+          </p>
+
+          <div class="prod-meta">
+            <span>Código: {{product.code}}</span>
+            <span>Categoría: {{product.category}}</span>
+            <span>Stock: {{product.stock}} unidades</span>
+            <span>ID interno: {{product.id}}</span>
+          </div>
+
+          <div style="display: flex; justify-content:space-between">
+
+          <div class="prod-price">
+            $ {{product.price}}
+          </div>
+
+          {{#if product.status}}
+            <div class="prod-status active" style="margin-bottom: 10px;">
+                Activo
+            </div>
+            {{else}}
+            <div class="prod-status inactive" style="margin-bottom: 10px;">
+                Inactivo
+            </div>
+          {{/if}}
+
+          </div>
+
+          <div class="prod-meta">
+            <button class="btn">Agregar al carrito</button>
+            <a href="/realtimeproducts"><button class="placeholder-Button" style="cursor: pointer;">Volver a productos en tiempo real</button></a>
+          </div>
+        </article>
+        <article class="endpoint-card">
+            <div class="prod-thumbnails">
+            <img
+              class="main-thumb"
+              src="{{product.mainThumb}}"
+              alt="Main thumbnail del producto TsKTBgUSBJYO"
+            />
+
+            <div class="thumb-gallery">
+              {{#each product.thumbnail}}
+              <img
+                class="thumb"
+                src="{{this}}"
+                alt="Subthumbnail 1 del producto TsKTBgUSBJYO"
+              />
+              {{/each}}
+        
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </div>

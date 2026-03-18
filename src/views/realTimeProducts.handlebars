@@ -1,0 +1,113 @@
+<section>
+    <h2>Productos en tiempo real</h2>
+    <div class="endpoint-grid">
+        <div class="endpoint-card">
+            <div class="endpoint-path">Actualización de productos</div>
+            <div id="post-head">
+                <div class="method POST">POST</div>
+                <div class="endpoint-path">Carga de productos</div>
+            </div>
+            <div id="post-expander" style="display: none;">
+                <div style="padding-bottom:1em">
+                    <button class="placeholder-Button" onclick="addPlaceHolders()" id="placeholder-Post-Prods">Generar placeholders  ⟵</button>
+                </div>
+                <div class="form-group">
+                    <label>📝 Title:</label>
+                    <input type="text" id="title" placeholder="iPhone 15 Pro">
+                </div>
+                <div class="form-group">
+                    <label>📄 Description:</label>
+                    <textarea id="description" placeholder="Smartphone de última generación..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>🔑 Code:</label>
+                    <input type="text" id="code" placeholder="IPH15P">
+                </div>
+                <div class="form-group">
+                    <label>💰 Price:</label>
+                    <input type="number" id="price" placeholder="1200" min="0" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label>📦 Stock:</label>
+                    <input type="number" id="stock" placeholder="50" min="0">
+                </div>
+                <div class="form-group">
+                    <label>✅ Status:</label>
+                    <select id="status">
+                        <option value="true">Activo</option>
+                        <option value="false">Inactivo</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>🏷️ Category:</label>
+                    <input type="text" id="category" placeholder="Electrónicos">
+                </div>
+                <div class="form-group">
+                    <label>🖼️ Thumbnails (separados por coma):</label>
+                    <input type="text" id="thumbnails" placeholder="img1.jpg,img2.jpg">
+                </div>
+                <button class="placeholder-Button" style="width: 100%; margin-bottom: .5rem; border-radius: 10px;" onclick="addPlaceHolders()" id="placeholder-Post-Prods">Generar placeholders  ⟵</button>
+                <button id="create-btn" class="btn" onclick="testCreateProduct()">➕ Crear Producto</button>
+                <div id="create-response" class="response-container" style="display: none;">
+                    <div class="response-header">
+                        <span>📊 Respuesta del Servidor</span>
+                        <div>
+                            <span id="create-status" class="response-status">Esperando...</span>
+                            <button class="clear-btn" onclick="clearResponse('create')">Limpiar</button>
+                        </div>
+                    </div>
+                    <div id="create-body" class="response-body response-empty">Completa el formulario y prueba</div>
+                </div>
+            </div>
+
+            <div id="delete-head">
+                <div class="method DELETE">DELETE</div>
+                <div class="endpoint-path">/api/products/:pid</div>
+            </div>
+            <div id="delete-expander" style="display:none">
+                <div class="form-group">
+                    <label>🔢 Product ID:</label>
+                    <input type="number" id="pid-delete" placeholder="Ej: 1" min="1">
+                </div>
+                <button id="delete-btn" class="btn" onclick="testDeleteProduct()">🗑️ Eliminar Producto</button>
+                <div id="delete-response" class="response-container" style="display: none;">
+                    <div class="response-header">
+                        <span>📊 Respuesta del Servidor</span>
+                        <div>
+                            <span id="delete-status" class="response-status">Esperando...</span>
+                            <button class="clear-btn" onclick="clearResponse('delete')">Limpiar</button>
+                        </div>
+                    </div>
+                    <div id="delete-body" class="response-body response-empty">Introduce ID y elimina</div>
+                </div>
+            </div>
+        </div>
+        <div class="endpoint-card">
+            <div class="endpoint-path">Vista de productos</div>
+            <div class="products-rt">
+                {{#each products}}
+                <div class="product-preview">
+                    <div>
+                        <strong>ID: {{this.id}}</strong>
+                        {{#if this.status}}
+                            <div class="prod-status active">Disponible</div>
+                            {{else}}
+                            <div class="prod-status inactive">Agotado</div>
+                        {{/if}}
+                    </div>
+                    <img src={{this.mainThumb}} alt={{this.title}} class="main-thumb" alt="">
+                    <div>
+                        <h3>{{this.title}}</h3>
+                        <p>${{this.price}}</p>
+                    </div>
+                    <a href="/product/{{this.id}}"><button class="btn">Revisar producto</button></a>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/socketManage.js"></script>
+<script src="/js/realTime.js"></script>

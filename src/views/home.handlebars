@@ -1,0 +1,32 @@
+<section>
+    <h2>Productos</h2>
+    <div class="prods-grid">
+        {{#each products}}
+            <div class="endpoint-card">
+                <div class="prod-thumbnails">
+                    <img src={{this.mainThumb}} alt={{this.title}} class="main-thumb">
+                    <div class="thumb-gallery">
+                        {{#each this.thumbnail}}
+                            <img src={{this}} alt="Thumb {{this}}" class="thumb">
+                        {{/each}}
+                    </div>
+                </div>
+                <div class="prod-info">
+                    <h3 class="prod-title">{{this.title}}</h3>
+                    <p class="prod-description">{{this.description}}</p>
+                    <div class="prod-meta">
+                        <span class="prod-code">Código: {{this.code}}</span>
+                        <span class="prod-category">Categoría: {{this.category}}</span>
+                        <span class="prod-stock">Stock: {{this.stock}}</span>
+                    </div>
+                    <div class="prod-price"> ${{this.price}}</div>
+                    {{#if this.status}}
+                        <div class="prod-status active">Disponible</div>
+                        {{else}}
+                        <div class="prod-status inactive">Agotado</div>
+                    {{/if}}
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</section>

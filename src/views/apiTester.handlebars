@@ -1,0 +1,238 @@
+<!-- PRODUCTS SECTION -->
+<section>
+    <h2>📦 Products API</h2>
+    <div class="endpoint-grid">
+        
+        <!-- GET All Products -->
+        <div class="endpoint-card">
+            <div class="method GET">GET</div>
+            <div class="endpoint-path">/api/products</div>
+            <button class="btn" onclick="testGetProducts()">📋 Listar Todos los Productos</button>
+            <div id="products-response" class="response-container" style="display: none;">
+                <div class="response-header">
+                    <span>📊 Respuesta del Servidor</span>
+                    <div>
+                        <span id="products-status" class="response-status">Esperando...</span>
+                        <button class="clear-btn" onclick="clearResponse('products')">Limpiar</button>
+                    </div>
+                </div>
+                <div id="products-body" class="response-body response-empty">Haz clic en el botón para probar el endpoint</div>
+            </div>
+        </div>
+
+        <!-- GET Product by ID -->
+        <div class="endpoint-card">
+            <div class="method GET">GET</div>
+            <div class="endpoint-path">/api/products/:pid</div>
+            <div class="form-group">
+                <label>🔢 Product ID:</label>
+                <input type="number" id="pid-get" placeholder="Ej: 1" min="1">
+            </div>
+            <button class="btn" onclick="testGetProductById()">🔍 Obtener Producto</button>
+            <div id="product-response" class="response-container" style="display: none;">
+                <div class="response-header">
+                    <span>📊 Respuesta del Servidor</span>
+                    <div>
+                        <span id="product-status" class="response-status">Esperando...</span>
+                        <button class="clear-btn" onclick="clearResponse('product')">Limpiar</button>
+                    </div>
+                </div>
+                <div id="product-body" class="response-body response-empty">Introduce un ID y haz clic para probar</div>
+            </div>
+        </div>
+
+        <!-- POST Create Product -->
+        <div class="endpoint-card">
+            <div style="display: flex; gap:1rem; flex-wrap: wrap;">
+                <div class="method POST">POST</div>
+                <button class="placeholder-Button" onclick="addPlaceHolders()" id="placeholder-Post-Prods">Generar placeholders  ⟵</button>
+            </div>
+            <div class="endpoint-path">/api/products</div>
+            <div class="form-group">
+                <label>📝 Title:</label>
+                <input type="text" id="title" placeholder="iPhone 15 Pro">
+            </div>
+            <div class="form-group">
+                <label>📄 Description:</label>
+                <textarea id="description" placeholder="Smartphone de última generación..."></textarea>
+            </div>
+            <div class="form-group">
+                <label>🔑 Code:</label>
+                <input type="text" id="code" placeholder="IPH15P">
+            </div>
+            <div class="form-group">
+                <label>💰 Price:</label>
+                <input type="number" id="price" placeholder="1200" min="0" step="0.01">
+            </div>
+            <div class="form-group">
+                <label>📦 Stock:</label>
+                <input type="number" id="stock" placeholder="50" min="0">
+            </div>
+            <div class="form-group">
+                <label>✅ Status:</label>
+                <select id="status">
+                    <option value="true">Activo</option>
+                    <option value="false">Inactivo</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>🏷️ Category:</label>
+                <input type="text" id="category" placeholder="Electrónicos">
+            </div>
+            <div class="form-group">
+                <label>🖼️ Thumbnails (separados por coma):</label>
+                <input type="text" id="thumbnails" placeholder="img1.jpg,img2.jpg">
+            </div>
+            <button class="placeholder-Button" style="width: 100%; margin-bottom: .5rem; border-radius: 10px;" onclick="addPlaceHolders()" id="placeholder-Post-Prods">Generar placeholders  ⟵</button>
+            <button class="btn" onclick="testCreateProduct()">➕ Crear Producto</button>
+            <div id="create-response" class="response-container" style="display: none;">
+                <div class="response-header">
+                    <span>📊 Respuesta del Servidor</span>
+                    <div>
+                        <span id="create-status" class="response-status">Esperando...</span>
+                        <button class="clear-btn" onclick="clearResponse('create')">Limpiar</button>
+                    </div>
+                </div>
+                <div id="create-body" class="response-body response-empty">Completa el formulario y prueba</div>
+            </div>
+        </div>
+
+        <!-- PUT Update Product -->
+        <div class="endpoint-card">
+            <div class="method PUT">PUT</div>
+            <div class="endpoint-path">/api/products/:pid</div>
+            <div class="form-group">
+                <label>🔢 Product ID:</label>
+                <input type="number" id="pid-put" placeholder="Ej: 1" min="1">
+            </div>
+            <div class="form-group">
+                <label>⚙️ Action:</label>
+                <select id="update-action">
+                    <option value="title">Actualizar Titulo</option>
+                    <option value="description">Actualizar Descripción</option>
+                    <option value="price">Actualizar Precio</option>
+                    <option value="status">Actualizar Status</option>
+                    <option value="category">Actualizar Categoria</option>
+                    <option value="addStock">Añadir Stock</option>
+                    <option value="removeStock">Remover Stock</option>
+                    <option value="addThumb">Añadir Thumbnail</option>
+                    <option value="removeThumb">Remover Thumbnail</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>📝 Value:</label>
+                <input type="text" id="update-value" placeholder="Texto | Número | URL">
+            </div>
+            <button class="btn" onclick="testUpdateProduct()">🔄 Actualizar Producto</button>
+            <div id="update-response" class="response-container" style="display: none;">
+                <div class="response-header">
+                    <span>📊 Respuesta del Servidor</span>
+                    <div>
+                        <span id="update-status" class="response-status">Esperando...</span>
+                        <button class="clear-btn" onclick="clearResponse('update')">Limpiar</button>
+                    </div>
+                </div>
+                <div id="update-body" class="response-body response-empty">Selecciona acción y prueba</div>
+            </div>
+        </div>
+
+        <!-- DELETE Product -->
+        <div class="endpoint-card">
+            <div class="method DELETE">DELETE</div>
+            <div class="endpoint-path">/api/products/:pid</div>
+            <div class="form-group">
+                <label>🔢 Product ID:</label>
+                <input type="number" id="pid-delete" placeholder="Ej: 1" min="1">
+            </div>
+            <button class="btn" onclick="testDeleteProduct()">🗑️ Eliminar Producto</button>
+            <div id="delete-response" class="response-container" style="display: none;">
+                <div class="response-header">
+                    <span>📊 Respuesta del Servidor</span>
+                    <div>
+                        <span id="delete-status" class="response-status">Esperando...</span>
+                        <button class="clear-btn" onclick="clearResponse('delete')">Limpiar</button>
+                    </div>
+                </div>
+                <div id="delete-body" class="response-body response-empty">Introduce ID y elimina</div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- CARTS SECTION -->
+<section>
+    <h2>🛒 Carts API</h2>
+    <div class="endpoint-grid">
+        
+        <!-- GET Cart by ID -->
+        <div class="endpoint-card">
+            <div class="method GET">GET</div>
+            <div class="endpoint-path">/api/carts/:cid</div>
+            <div class="form-group">
+                <label>🛒 Cart ID:</label>
+                <input type="text" id="cid-get" placeholder="Ej: 1">
+            </div>
+            <button class="btn" onclick="testGetCart()">👁️ Ver Carrito</button>
+            <div id="cart-response" class="response-container" style="display: none;">
+                <div class="response-header">
+                    <span>📊 Respuesta del Servidor</span>
+                    <div>
+                        <span id="cart-status" class="response-status">Esperando...</span>
+                        <button class="clear-btn" onclick="clearResponse('cart')">Limpiar</button>
+                    </div>
+                </div>
+                <div id="cart-body" class="response-body response-empty">Introduce Cart ID y prueba</div>
+            </div>
+        </div>
+
+        <!-- POST Create Cart -->
+        <div class="endpoint-card">
+            <div class="method POST">POST</div>
+            <div class="endpoint-path">/api/carts</div>
+            <button class="btn" onclick="testCreateCart()">🆕 Crear Carrito</button>
+            <div id="cart-create-response" class="response-container" style="display: none;">
+                <div class="response-header">
+                    <span>📊 Respuesta del Servidor</span>
+                    <div>
+                        <span id="cart-create-status" class="response-status">Esperando...</span>
+                        <button class="clear-btn" onclick="clearResponse('cart-create')">Limpiar</button>
+                    </div>
+                </div>
+                <div id="cart-create-body" class="response-body response-empty">Haz clic para crear un carrito</div>
+            </div>
+        </div>
+
+        <!-- POST Add Product to Cart -->
+        <div class="endpoint-card">
+            <div class="method POST">POST</div>
+            <div class="endpoint-path">/api/carts/:cid/product/:pid</div>
+            <div class="form-group">
+                <label>🛒 Cart ID:</label>
+                <input type="text" id="cid-add" placeholder="Ej: 1">
+            </div>
+            <div class="form-group">
+                <label>🔢 Product ID:</label>
+                <input type="number" id="pid-add" placeholder="Ej: 1" min="1">
+            </div>
+            <div class="form-group">
+                <label>📊 Quantity:</label>
+                <input type="number" id="quantity" value="1" min="1">
+            </div>
+            <button class="btn" onclick="testAddProductToCart()">➕ Agregar al Carrito</button>
+            <div id="cart-add-response" class="response-container" style="display: none;">
+                <div class="response-header">
+                    <span>📊 Respuesta del Servidor</span>
+                    <div>
+                        <span id="cart-add-status" class="response-status">Esperando...</span>
+                        <button class="clear-btn" onclick="clearResponse('cart-add')">Limpiar</button>
+                    </div>
+                </div>
+                <div id="cart-add-body" class="response-body response-empty">Completa los campos y prueba</div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<script src="/js/apiTester.js"></script>
