@@ -26,7 +26,7 @@ const app = express()
 const httpServer = app.listen(puerto,()=>{
     console.log(`Servidor levantado en el puerto ${puerto}`)
     mongoose.connect(MONGOKEY).then((e)=>console.log("Conexión establecida con estado: ",e.connections[0]._readyState));
-    // open.openApp(`http://localhost:${puerto}`) 
+    open.openApp(`http://localhost:${puerto}`) 
 })
 
 const socketServer = new socketIO.Server(httpServer);
