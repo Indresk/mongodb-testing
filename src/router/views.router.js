@@ -10,12 +10,12 @@ module.exports = function ({ productManager }) {
         const internalResponse = await productManager.getProducts(false,optionsPag)
 
         switch(internalResponse.status){
-            case 'failed':
-                return res.redirect(`/404?errorMessage=${internalResponse.message}`)
+            case 'error':
+                return res.redirect(`/404?errorMessage=${internalResponse.payload}`)
 
             case 'success':
-                const {docs,...pagination} = internalResponse.content;
-                const prodsToRender = docs.map((prod)=>{return {...prod, mainThumb:prod.thumbnails[0]}})
+                const {payload,...pagination} = internalResponse;
+                const prodsToRender = payload.map((prod)=>{return {...prod, mainThumb:prod.thumbnails[0]}})
                 return res.render("home", {
                     products: prodsToRender,
                     pagination: pagination,
@@ -26,7 +26,7 @@ module.exports = function ({ productManager }) {
                 })
            
             default:
-                return res.redirect(`/404?errorMessage=${internalResponse.message}`)
+                return res.redirect(`/404?errorMessage=${internalResponse.payload}`)
         }
     });
 
@@ -35,14 +35,15 @@ module.exports = function ({ productManager }) {
         const internalResponse = await productManager.getProducts(false,optionsPag)
 
         switch(internalResponse.status){
-            case 'failed':
-                return res.redirect(`/404?errorMessage=${internalResponse.message}`)
+            case 'error':
+                return res.redirect(`/404?errorMessage=${internalResponse.payload}`)
 
             case 'success':
-                const {docs,...pagination} = internalResponse.content;
-                const prodsToRender = docs.map((prod)=>{return {...prod, mainThumb:prod.thumbnails[0]}})
+                const {payload,...pagination} = internalResponse;
+                const prodsToRender = payload.map((prod)=>{return {...prod, mainThumb:prod.thumbnails[0]}})
                 return res.render("realTimeProducts", {
                     products: prodsToRender,
+                    pagination: pagination,
                     head: {
                         styles: "/css/styles.css",
                         title: "Productos en tiempo real"
@@ -50,7 +51,7 @@ module.exports = function ({ productManager }) {
                 })
            
             default:
-                return res.redirect(`/404?errorMessage=${internalResponse.message}`)
+                return res.redirect(`/404?errorMessage=${internalResponse.payload}`)
         }
     })
 
@@ -86,11 +87,11 @@ module.exports = function ({ productManager }) {
     viewsRouter.get("/product/:pid", async (req, res) => {
         const internalResponse = await productManager.getProducts(req.params.pid);
         switch(internalResponse.status){
-            case 'failed':
-                return res.redirect(`/404?errorMessage=${internalResponse.message}`)
+            case 'error':
+                return res.redirect(`/404?errorMessage=${internalResponse.payload}`)
 
             case 'success':
-                const prodToRender = {...internalResponse.content , mainThumb:internalResponse.content.thumbnails[0]}
+                const prodToRender = {...internalResponse.payload , mainThumb:internalResponse.payload.thumbnails[0]}
                 return res.render("detailProds", {
                     product: prodToRender,
                     head: {
@@ -101,7 +102,7 @@ module.exports = function ({ productManager }) {
                 })
            
             default:
-                return res.redirect(`/404?errorMessage=${internalResponse.message}`)
+                return res.redirect(`/404?errorMessage=${internalResponse.payload}`)
         }
     });
 

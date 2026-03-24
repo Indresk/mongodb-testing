@@ -10,8 +10,7 @@ socket.on("prods-updated", async({action}) => {
 
     const apiResponse = await fetch(fetchURL);
     const data = await apiResponse.json();
-    console.log(data)
-    const prods = data.content.docs;
+    const prods = data.payload;
     
 
     switch(action){

@@ -113,8 +113,8 @@ async function testDeleteProduct() {
 
 // CARTS ENDPOINTS
 async function testGetCart() {
-    const cid = document.getElementById('cid-get').value;
-    if (!cid) return alert('❌ Ingresa un Cart ID');
+    let cid = document.getElementById('cid-get').value;
+    if (!cid) cid = ''
     await apiRequest(`/carts/${cid}`, { responseId: 'cart' });
 }
 
