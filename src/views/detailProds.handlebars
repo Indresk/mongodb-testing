@@ -36,8 +36,9 @@
           </div>
 
           <div class="prod-meta">
-            <button class="btn">Agregar al carrito</button>
+            <button class="btn add-to-cart-button" data-id="{{product.id}}">Añadir a carrito</button>
             <a href="/realtimeproducts"><button class="placeholder-Button" style="cursor: pointer;">Volver a productos en tiempo real</button></a>
+            <a href="/"><button class="placeholder-Button" style="cursor: pointer;">Volver a productos</button></a>
           </div>
         </article>
         <article class="endpoint-card">
@@ -63,3 +64,4 @@
       </div>
     </section>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

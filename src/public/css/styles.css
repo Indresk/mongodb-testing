@@ -29,6 +29,7 @@ header {
     color: white;
     padding: 30px;
     text-align: center;
+    position: relative;
 }
 
 header h1 {
@@ -440,8 +441,6 @@ textarea {
     background-position: 100% 50%;
 }
 
-
-
 #delete-head::after, #post-head::after{
     content: '';
     position: absolute;
@@ -462,6 +461,135 @@ textarea {
 
 #post-expander, #delete-expander{
     padding: 1em;
+}
+
+.filter-container{
+    display: flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    margin: 15px 0px;
+    gap: 8px
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pagination-link {
+  text-decoration: none;
+}
+
+.pagination-button {
+  all: unset;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: #ffffff;
+  color: #111827;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pagination-button:hover {
+  background-color: #f3f4f6;
+  border-color: #9ca3af;
+  transform: translateY(-1px);
+}
+
+.pagination-button:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.pagination-button.active {
+  background-color: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+  font-weight: 600;
+}
+
+.pagination-button.active:hover {
+  background-color: #2563eb;
+  border-color: #2563eb;
+}
+
+.status-filter {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.status-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 0 0;
+}
+
+.param-item {
+  text-decoration: none;
+}
+
+.status-button {
+  all: unset;
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: #ffffff;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.status-button:hover {
+  background-color: #f3f4f6;
+  border-color: #9ca3af;
+  transform: translateY(-1px);
+}
+
+.status-button:active {
+  transform: translateY(0);
+}
+
+.status-button.active,
+.status-button:has(+ .status-button.active) {
+  background-color: #3b82f6 !important;
+  border-color: #3b82f6;
+  color: white !important;
+}
+
+.status-button:has(+ .status-button.active[value="disponible"]) {
+  background-color: #10b981;
+  border-color: #10b981;
+}
+
+.status-button:has(+ .status-button.active[value="agotado"]) {
+  background-color: #ef4444;
+  border-color: #ef4444;
+}
+
+.selected-cart-widget{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    padding: 10px;
+    background-color: white;
+    color: black;
+    border-radius: 20px;
 }
 
 @media (max-width: 768px) {

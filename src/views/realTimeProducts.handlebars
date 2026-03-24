@@ -84,6 +84,19 @@
         </div>
         <div class="endpoint-card">
             <div class="endpoint-path">Vista de productos</div>
+            <div class="filter-container">
+                <div class="pagination">
+                    {{#if pagination.prevLink}}<a href="?{{pagination.prevLink}}" class="pagination-link param-item"><button class="pagination-button">{{pagination.prevPage}}</button></a>{{/if}}
+                    <button class="pagination-button active">{{pagination.page}}</button>
+                    {{#if pagination.nextLink}}<a href="?{{pagination.nextLink}}" class="pagination-link param-item"><button class="pagination-button">{{pagination.nextPage}}</button></a>{{/if}}
+                </div>
+                <div class="status-filter">
+                    <p class="status-title">Status</p>
+                    <a href="?status=null" class="param-item"><button class="status-button">Todos</button></a>
+                    <a href="?status=disponible" class="param-item"><button class="status-button">Disponible</button></a>
+                    <a href="?status=agotado" class="param-item"><button class="status-button">Agotado</button></a>
+                </div>
+            </div>
             <div class="products-rt">
                 {{#each products}}
                 <div class="product-preview">
@@ -100,7 +113,7 @@
                         <h3>{{this.title}}</h3>
                         <p>${{this.price}}</p>
                     </div>
-                    <a href="/product/{{this.id}}"><button class="btn">Revisar producto</button></a>
+                    <a href="/products/{{this.id}}"><button class="btn">Revisar producto</button></a>
                 </div>
                 {{/each}}
             </div>
@@ -112,3 +125,4 @@
 <script src="/js/apiTester.js"></script>
 <script src="/js/socketManage.js"></script>
 <script src="/js/realTime.js"></script>
+<script src="/js/queryState.js"></script>

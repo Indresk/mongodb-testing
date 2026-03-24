@@ -164,27 +164,6 @@
 <section>
     <h2>🛒 Carts API</h2>
     <div class="endpoint-grid">
-        
-        <!-- GET Cart by ID -->
-        <div class="endpoint-card">
-            <div class="method GET">GET</div>
-            <div class="endpoint-path">/api/carts/:cid</div>
-            <div class="form-group">
-                <label>🛒 Cart ID:</label>
-                <input type="text" id="cid-get" placeholder="Ej: 1">
-            </div>
-            <button class="btn" onclick="testGetCart()">👁️ Ver Carrito</button>
-            <div id="cart-response" class="response-container" style="display: none;">
-                <div class="response-header">
-                    <span>📊 Respuesta del Servidor</span>
-                    <div>
-                        <span id="cart-status" class="response-status">Esperando...</span>
-                        <button class="clear-btn" onclick="clearResponse('cart')">Limpiar</button>
-                    </div>
-                </div>
-                <div id="cart-body" class="response-body response-empty">Introduce Cart ID y prueba</div>
-            </div>
-        </div>
 
         <!-- POST Create Cart -->
         <div class="endpoint-card">
@@ -200,6 +179,73 @@
                     </div>
                 </div>
                 <div id="cart-create-body" class="response-body response-empty">Haz clic para crear un carrito</div>
+            </div>
+        </div>
+
+        <!-- GET Cart by ID -->
+        <div class="endpoint-card">
+            <div class="method GET">GET</div>
+            <div class="endpoint-path">/api/carts/:cid</div>
+            <div class="form-group">
+                <label>🛒 Cart ID:</label>
+                <input type="text" id="cid-get" placeholder="Ej: 69c195d98c8caf26d16d8f55">
+            </div>
+            <button class="btn" onclick="testGetCart()">👁️ Ver Carrito</button>
+            <div id="cart-response" class="response-container" style="display: none;">
+                <div class="response-header">
+                    <span>📊 Respuesta del Servidor</span>
+                    <div>
+                        <span id="cart-status" class="response-status">Esperando...</span>
+                        <button class="clear-btn" onclick="clearResponse('cart')">Limpiar</button>
+                    </div>
+                </div>
+                <div id="cart-body" class="response-body response-empty">Introduce Cart ID y prueba</div>
+            </div>
+        </div>
+
+        <!-- PUT all prods in Cart by ID -->
+        <div class="endpoint-card">
+            <div class="method PUT">PUT</div>
+            <div class="endpoint-path">/api/carts/:cid</div>
+            <div class="form-group">
+                <label>🛒 Cart ID:</label>
+                <input type="text" id="UpdateAllProdscart-put" placeholder="Ej: 69c195d98c8caf26d16d8f55">
+            </div>
+            <div class="form-group">
+                <label>Array nuevo:</label>
+                <input type="text" id="products-array" placeholder='[{"product":"abc","quantity":1},{"product":"anc","quantity":2}]'>
+            </div>
+            <button class="btn" onclick="testUpdateAllProdsCart()">Actualizar todos los productos del carrito</button>
+            <div id="UpdateAllProdscart-response" class="response-container" style="display: none;">
+                <div class="response-header">
+                    <span>📊 Respuesta del Servidor</span>
+                    <div>
+                        <span id="UpdateAllProdscart-status" class="response-status">Esperando...</span>
+                        <button class="clear-btn" onclick="clearResponse('UpdateAllProdscart')">Limpiar</button>
+                    </div>
+                </div>
+                <div id="UpdateAllProdscart-body" class="response-body response-empty">Introduce Cart ID y prueba</div>
+            </div>
+        </div>
+
+        <!-- Delete all prods in Cart by ID -->
+        <div class="endpoint-card">
+            <div class="method DELETE">DELETE</div>
+            <div class="endpoint-path">/api/carts/:cid</div>
+            <div class="form-group">
+                <label>🛒 Cart ID:</label>
+                <input type="text" id="DeleteAllProdscart-delete" placeholder="Ej: 69c195d98c8caf26d16d8f55">
+            </div>
+            <button class="btn" onclick="testDeleteAllProdsCart()">Eliminar todos los productos del carrito</button>
+            <div id="DeleteAllProdscart-response" class="response-container" style="display: none;">
+                <div class="response-header">
+                    <span>📊 Respuesta del Servidor</span>
+                    <div>
+                        <span id="DeleteAllProdscart-status" class="response-status">Esperando...</span>
+                        <button class="clear-btn" onclick="clearResponse('DeleteAllProdscart')">Limpiar</button>
+                    </div>
+                </div>
+                <div id="DeleteAllProdscart-body" class="response-body response-empty">Introduce Cart ID y prueba</div>
             </div>
         </div>
 
@@ -229,6 +275,67 @@
                     </div>
                 </div>
                 <div id="cart-add-body" class="response-body response-empty">Completa los campos y prueba</div>
+            </div>
+        </div>
+
+        <!-- PUT modify quantity Product in Cart -->
+        <div class="endpoint-card">
+            <div class="method PUT">PUT</div>
+            <div class="endpoint-path">/api/carts/:cid/product/:pid</div>
+            <div class="form-group">
+                <label>🛒 Cart ID:</label>
+                <input type="text" id="cid-prodInCart-update" placeholder="Ej: 69ba07c93908f7899ddd10c3">
+            </div>
+            <div class="form-group">
+                <label>🔢 Product ID:</label>
+                <input type="text" id="pid-prodInCart-update" placeholder="Ej: 69ba07c93908f7899ddd10c3">
+            </div>
+            <div class="form-group">
+                <label>📊 Quantity:</label>
+                <input type="number" id="prodInCart-update-quantity" value="1" min="1">
+            </div>
+            <div class="form-group">
+                <label>⚙️ Action:</label>
+                <select id="subtractState">
+                    <option value="sumar">Sumar</option>
+                    <option value="restar">Restar</option>
+                </select>
+            </div>
+            <button class="btn" onclick="testUpdateProductInCart()">Modificar cantidad de un producto en el Carrito</button>
+            <div id="prodInCart-update-response" class="response-container" style="display: none;">
+                <div class="response-header">
+                    <span>📊 Respuesta del Servidor</span>
+                    <div>
+                        <span id="prodInCart-update-status" class="response-status">Esperando...</span>
+                        <button class="clear-btn" onclick="clearResponse('prodInCart-update')">Limpiar</button>
+                    </div>
+                </div>
+                <div id="prodInCart-update-body" class="response-body response-empty">Completa los campos y prueba</div>
+            </div>
+        </div>
+
+        <!-- DELETE modify quantity Product in Cart -->
+        <div class="endpoint-card">
+            <div class="method DELETE">DELETE</div>
+            <div class="endpoint-path">/api/carts/:cid/product/:pid</div>
+            <div class="form-group">
+                <label>🛒 Cart ID:</label>
+                <input type="text" id="cid-prodInCart-delete" placeholder="Ej: 69ba07c93908f7899ddd10c3">
+            </div>
+            <div class="form-group">
+                <label>🔢 Product ID:</label>
+                <input type="text" id="pid-prodInCart-delete" placeholder="Ej: 69ba07c93908f7899ddd10c3">
+            </div>
+            <button class="btn" onclick="testDeleteProductInCart()">Eliminar producto del Carrito</button>
+            <div id="prodInCart-delete-response" class="response-container" style="display: none;">
+                <div class="response-header">
+                    <span>📊 Respuesta del Servidor</span>
+                    <div>
+                        <span id="prodInCart-delete-status" class="response-status">Esperando...</span>
+                        <button class="clear-btn" onclick="clearResponse('prodInCart-delete')">Limpiar</button>
+                    </div>
+                </div>
+                <div id="prodInCart-delete-body" class="response-body response-empty">Completa los campos y prueba</div>
             </div>
         </div>
 

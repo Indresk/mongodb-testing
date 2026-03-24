@@ -10,7 +10,7 @@ function paginationManager(req){
     const stock = parseInt(req.query.stock) || null;
 
     const filter = {};
-    if(categoryFilter) filter.category = categoryFilter;
+    if(categoryFilter && categoryFilter !== 'null') filter.category = categoryFilter;
     switch(statusFilter){
         case "disponible":
             filter.status = true;

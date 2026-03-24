@@ -39,7 +39,6 @@ module.exports = function ({ cartManager }) {
         res.status(responseStatus).send(JSON.stringify(internalResponse))
     })
 
-
     apiCartRouter.post("/:cid/product/:pid",async (req,res)=>{
         const internalResponse = await cartManager.addProdToCart(req.params.cid,req.params.pid,req.body.quantity)
         const responseStatus = internalResponse.status === "success"?201:404

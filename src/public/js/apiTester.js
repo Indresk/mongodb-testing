@@ -118,6 +118,29 @@ async function testGetCart() {
     await apiRequest(`/carts/${cid}`, { responseId: 'cart' });
 }
 
+async function testUpdateAllProdsCart() {
+    let cid = document.getElementById('UpdateAllProdscart-put').value;
+    let inputValue = document.getElementById('products-array').value;
+    if (inputValue === '') return alert('❌ Completa el array de productos en formato JSON');
+    let productsArray = JSON.parse(inputValue);
+
+    if (!cid) cid = ''
+    await apiRequest(`/carts/${cid}`, {
+        method: 'PUT',
+        body: {products:productsArray},
+        responseId: 'UpdateAllProdscart' 
+    });
+}
+
+async function testDeleteAllProdsCart() {
+    let cid = document.getElementById('DeleteAllProdscart-delete').value;
+    if (!cid) cid = ''
+    await apiRequest(`/carts/${cid}`, {
+        method: 'DELETE',
+        responseId: 'DeleteAllProdscart' 
+    });
+}
+
 async function testCreateCart() {
     await apiRequest('/carts', { 
         method: 'POST',
@@ -136,6 +159,33 @@ async function testAddProductToCart() {
         method: 'POST',
         body: { quantity: parseInt(quantity) || 1 },
         responseId: 'cart-add'
+    });
+}
+
+async function testUpdateProductInCart() {
+    const cid = document.getElementById('cid-prodInCart-update').value;
+    const pid = document.getElementById('pid-prodInCart-update').value;
+    const quantity = document.getElementById('prodInCart-update-quantity').value;
+    const subtractState = document.getElementById('subtractState').value.toLowerCase() === 'restar'?true:false;
+
+    if (!cid || !pid) return alert('❌ Completa Cart ID y Product ID');
+    
+    await apiRequest(`/carts/${cid}/product/${pid}`, {
+        method: 'PUT',
+        body: { quantity: parseInt(quantity) || 1, subtract:subtractState },
+        responseId: 'prodInCart-update'
+    });
+}
+
+async function testDeleteProductInCart() {
+    const cid = document.getElementById('cid-prodInCart-delete').value;
+    const pid = document.getElementById('pid-prodInCart-delete').value;
+    
+    if (!cid || !pid) return alert('❌ Completa Cart ID y Product ID');
+    
+    await apiRequest(`/carts/${cid}/product/${pid}`, {
+        method: 'DELETE',
+        responseId: 'prodInCart-delete'
     });
 }
 

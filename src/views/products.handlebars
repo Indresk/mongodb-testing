@@ -1,0 +1,49 @@
+<section>
+    <div class="filter-container">
+        <div class="pagination">
+            {{#if pagination.prevLink}}<a href="?{{pagination.prevLink}}" class="pagination-link param-item"><button class="pagination-button">{{pagination.prevPage}}</button></a>{{/if}}
+            <button class="pagination-button active">{{pagination.page}}</button>
+            {{#if pagination.nextLink}}<a href="?{{pagination.nextLink}}" class="pagination-link param-item"><button class="pagination-button">{{pagination.nextPage}}</button></a>{{/if}}
+        </div>
+        <div class="status-filter">
+            <p class="status-title">Status</p>
+            <a href="?status=null" class="param-item"><button class="status-button active">Todos</button></a>
+            <a href="?status=disponible" class="param-item"><button class="status-button">Disponible</button></a>
+            <a href="?status=agotado" class="param-item"><button class="status-button">Agotado</button></a>
+        </div>
+    </div>
+    <h2>Productos</h2>
+    <div class="prods-grid">
+        {{#each products}}
+            <div class="endpoint-card">
+                <div class="prod-thumbnails">
+                    <img src={{this.mainThumb}} alt={{this.title}} class="main-thumb">
+                    <div class="thumb-gallery">
+                        {{#each this.thumbnail}}
+                            <img src={{this}} alt="Thumb {{this}}" class="thumb">
+                        {{/each}}
+                    </div>
+                </div>
+                <div class="prod-info" style="margin-bottom: .5rem;">
+                    <h3 class="prod-title">{{this.title}}</h3>
+                    <p class="prod-description">{{this.description}}</p>
+                    <div class="prod-meta">
+                        <span class="prod-code">Código: {{this.code}}</span>
+                        <span class="prod-category">Categoría: {{this.category}}</span>
+                        <span class="prod-stock">Stock: {{this.stock}}</span>
+                    </div>
+                    <div class="prod-price"> ${{this.price}}</div>
+                    {{#if this.status}}
+                        <div class="prod-status active">Disponible</div>
+                        {{else}}
+                        <div class="prod-status inactive">Agotado</div>
+                    {{/if}}
+                </div>
+                <a href="/products/{{this.id}}"><button class="btn">Revisar producto</button></a>
+                <button class="btn add-to-cart-button" data-id="{{this.id}}">Añadir a carrito</button>
+            </div>
+        {{/each}}
+    </div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/js/queryState.js"></script>

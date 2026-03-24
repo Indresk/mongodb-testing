@@ -1,0 +1,23 @@
+<section>
+    <div class="filter-container">
+        <div class="pagination">
+            {{#if pagination.prevLink}}<a href="?{{pagination.prevLink}}" class="pagination-link param-item"><button class="pagination-button">{{pagination.prevPage}}</button></a>{{/if}}
+            <button class="pagination-button active">{{pagination.page}}</button>
+            {{#if pagination.nextLink}}<a href="?{{pagination.nextLink}}" class="pagination-link param-item"><button class="pagination-button">{{pagination.nextPage}}</button></a>{{/if}}
+        </div>
+    </div>
+    <h2>Carritos</h2>
+    <div class="prods-grid">
+        {{#each payload}}
+            <div class="endpoint-card">
+                <div class="prod-info" style="margin-bottom: .5rem;">
+                    <h3 class="prod-title">ID: {{this.id}}</h3>
+                    <p class="prod-description">Cantidad de items: {{this.prodsNumber}}</p>
+                </div>
+                <a href="/carts/{{this.id}}"><button class="btn">Revisar carrito</button></a>
+                <button class="btn button-cart-selector" data-id="{{this.id}}">Seleccionar carrito</button>
+            </div>
+        {{/each}}
+    </div>
+</section>
+<script src="/js/queryState.js"></script>

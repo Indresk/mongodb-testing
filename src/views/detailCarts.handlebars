@@ -1,0 +1,43 @@
+<section>
+    <div class="prods-grid">
+        <h2>Cart: {{data.id}}</h2>
+        <div>
+            <p style="text-align: center;vertical-align:middle">Cantidad de productos en este carrito: {{data.prodsNumber}}</p>
+            <button class="btn button-cart-selector" data-id="{{data.id}}">Seleccionar carrito</button>
+        </div>
+    </div>
+    
+    <div class="prods-grid">
+        {{#each products}}
+            <div class="endpoint-card">
+                <div class="prod-thumbnails">
+                    <img src={{this.product.mainThumb}} alt={{this.product.title}} class="main-thumb">
+                    <div class="thumb-gallery">
+                        {{#each this.product.thumbnail}}
+                            <img src={{this}} alt="Thumb {{this}}" class="thumb">
+                        {{/each}}
+                    </div>
+                </div>
+                <div class="prod-info" style="margin-bottom: .5rem;">
+                    <h3 class="prod-title">{{this.product.title}}</h3>
+                    <p class="prod-description">{{this.product.description}}</p>
+                    <p class="prod-description" style="font-weight: bold;">Unidades en carrito: {{this.quantity}}</p>
+                    <div class="prod-meta">
+                        <span class="prod-code">Código: {{this.product.code}}</span>
+                        <span class="prod-category">Categoría: {{this.product.category}}</span>
+                        <span class="prod-stock">Stock: {{this.product.stock}}</span>
+                    </div>
+                    <div class="prod-price"> ${{this.product.price}}</div>
+                    {{#if this.product.status}}
+                        <div class="prod-status active">Disponible</div>
+                        {{else}}
+                        <div class="prod-status inactive">Agotado</div>
+                    {{/if}}
+                </div>
+                <a href="/products/{{this.product.id}}"><button class="btn">Revisar producto</button></a>
+                <button class="btn delete-from-cart-button" data-id="{{this.product.id}}">Eliminar del carrito</button>
+            </div>
+        {{/each}}
+    </div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

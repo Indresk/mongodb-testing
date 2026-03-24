@@ -18,7 +18,7 @@ async function updateCart(request,model,options){
 
     async function addProduct(){
         let products = currentCart.products;
-        const productSearch = products.find(p => p.product.id.toString() === pid);        
+        const productSearch = products.find(p => p.product._id.toString() === pid);        
 
         if (!productSearch) {
             products.push({ product: pid, quantity: quantityFixed });
@@ -34,7 +34,7 @@ async function updateCart(request,model,options){
     }
 
     async function updateAllProds(){
-        if(!verifyNewProdsStructure(newProds))throw new Error('Array de productos inválido, debe contener un objeto ya cada objeto las propiedades product y quantity')
+        if(!verifyNewProdsStructure(newProds))throw new Error('Array de productos inválido, debe contener objeto y cada objeto las propiedades product y quantity')
         if(!verifyProdsExist(newProds,prodsInDB))throw new Error('Alguno de los productos que estas intentando agregar al carrito no existe en la DB.')
         let products = currentCart.products;
         products.splice(0,products.length)
@@ -57,8 +57,6 @@ async function updateCart(request,model,options){
             stockBuffer = productSearch.quantity + quantityFixed
             productSearch.quantity += quantityFixed
         }
-        console.log(productSearch.quantity,'|',quantityFixed)
-        console.log(stockBuffer,"||",stock)
         if (stockBuffer > stock)throw new Error(`No se puede añadir mayor cantidad que el stock actual del producto: ${stock}`)
         if (stockBuffer < 0)throw new Error(`No se pueden retirar unidades del producto por encima del stock actual: ${stock}`)
 
